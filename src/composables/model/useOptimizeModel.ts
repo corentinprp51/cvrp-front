@@ -1,7 +1,6 @@
 import instance from '@/api';
 import { ref } from 'vue';
-import router from '@/router';
-import { DataInput, ModelInfos, Parameters } from '@/types/ModelInfos';
+import { DataInput, ModelInfos } from '@/types/ModelInfos';
 
 export const useOptimizeModel = () => {
     const error = ref('')
@@ -12,10 +11,10 @@ export const useOptimizeModel = () => {
         error.value = ''
         await instance.post(`/model`, modelInfos)
             .then((response) => {
-                id.value = response.data.id
-                modelParams.value = response.data.model
-                solution.value = response.data.solution
-                console.log(response.data)
+                const model = response.data.model
+                id.value = model.id
+                modelParams.value = model.data_parameters
+                solution.value = model.solution
             })
             .catch((err) => {
                 console.log(err)

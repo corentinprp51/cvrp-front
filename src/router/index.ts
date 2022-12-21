@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'home',
-        component: () => import('@/views/home-view.vue'),
+        component: () => import('@/views/models-list-view.vue'),
         meta: {
             requiresAuth: true
         }
@@ -20,11 +20,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'register',
         component: () => import('@/views/register-view.vue'),
     },
-    {
-        path: '/models',
-        name: 'models',
-        component: () => import('@/views/models-list-view.vue'),
-    },
+    // {
+    //     path: '/models',
+    //     name: 'models',
+    //     component: () => import('@/views/models-list-view.vue'),
+    // },
     {
         path: '/model/:id',
         name: 'model-view',
@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/model/new',
         name: 'model-new',
-        component: () => import('@/views/home-view.vue'),
+        component: () => import('@/views/model-create-view.vue'),
     },
 ]
 

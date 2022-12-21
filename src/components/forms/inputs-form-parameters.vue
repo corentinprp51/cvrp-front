@@ -4,6 +4,9 @@
       <input-file class="w-[415px]" @changeFile="changeFile"/>
     </div>
     <div class="mt-[20px]">
+      <input-generic-with-label class="w-[300px] text-start" type="text" v-model="propsName" label="Model Name" />
+    </div>
+    <div class="mt-[20px]">
       <input-generic-with-label class="w-[300px]" v-model="propsValue.vehicle_max_capacity" label="Vehicle Max Capacity" />
     </div>
     <div class="mt-[10px]">
@@ -26,11 +29,13 @@ import ButtonGeneric from '@/components/buttons/button-generic.vue';
 import InputFile from '@/components/inputs/input-file.vue';
 import { reactive } from 'vue';
 
-const props = withDefaults(defineProps<{modelValue: any}>(), {
+const props = withDefaults(defineProps<{modelValue: any; name: string}>(), {
 })
 const propsValue = useVModel(props, 'modelValue')
+const propsName = useVModel(props, 'name')
 const emit = defineEmits<{
   (e: 'submit', coords: object): void,
+  (e: 'update:name'): void
 }>()
 
 const coords = reactive({

@@ -1,7 +1,7 @@
 <template>
   <div class="mt-[30px] flex flex-col items-center">
     <main-title>CVRP - Resolve a new problem</main-title>
-    <inputs-form-parameters v-model="parameters" @submit="submitForm"/>
+    <inputs-form-parameters v-model="parameters" v-model:name="name" @submit="submitForm"/>
     <div v-if="routesObject.length > 0" id="map" style="height: 500px; width: 1000px;"></div>
     <div v-if="routesObject.length > 0">
       <input type="checkbox" checked value="0" @change="editLayer">Route 1
@@ -28,6 +28,8 @@ const parameters = reactive({
   iterations_limit: 0,
   gap: 0.1,
 })
+
+const name = ref('')
 
 const data = ref({})
 const map = ref({} as Map)
@@ -106,7 +108,7 @@ const createMap = (err: any, response: any) => {
 
 const submitForm = async (coords: { xcords: Array<number>; ycords: Array<number>; capacity: Array<number>; }) => {
   data.value = coords
-  await optimizeModel({ parameters, data: coords })
+  await optimizeModel({ name: name.value, parameters, data: coords })
   defineRoutesObject(solution)
   console.log('routes final: ', routesObject.value)
   defineMap()

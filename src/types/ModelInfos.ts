@@ -1,4 +1,5 @@
 export interface ModelInfos {
+    name: string
     parameters: Parameters
     data: DataInput
 }

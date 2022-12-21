@@ -9,7 +9,6 @@ export const useListModels = () => {
     const fetchModels = async () => {
         await instance.get('/models')
             .then((response: AxiosResponse<{ models: Array<Model> }>) => {
-                console.log(response.data)
                 models.value = response.data.models
             })
             .catch((err) => {
