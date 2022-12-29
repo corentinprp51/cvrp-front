@@ -5,7 +5,7 @@ export interface Model {
     file_solution_text: string;
     last_edit: string | null;
     name: string;
-    parameters: Parameters;
+    parameters: InputParameters;
     user_id: number;
     solution_path_file: string;
     solution: Array<Array<Array<number>>>;
@@ -17,7 +17,7 @@ export interface DataParameters {
     ycords: Array<number>;
 }
 
-export interface Parameters {
+export interface InputParameters {
     gap: number;
     time_limit: number;
     vehicle_max_capacity: number;

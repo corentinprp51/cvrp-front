@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import InputsFormParameters from '@/components/forms/inputs-form-parameters.vue';
+import InputsFormParameters from '@/components/forms/form-create-model.vue';
 import MainTitle from '@/components/titles/main-title.vue';
 import { useOptimizeModel } from '@/composables/model/useOptimizeModel';
 import ButtonGenericReversed from '@/components/buttons/button-generic-reversed.vue';

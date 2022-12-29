@@ -1,7 +1,7 @@
 <template>
   <div class="mt-[30px] flex flex-col items-center">
     <main-title>CVRP - Resolve a new problem</main-title>
-    <inputs-form-parameters v-model="parameters" v-model:name="name" @submit="submitForm"/>
+    <form-create-model v-model="parameters" v-model:name="name" @submit="submitForm"/>
     <div v-if="routesObject.length > 0" id="map" style="height: 500px; width: 1000px;"></div>
     <div v-if="routesObject.length > 0">
       <input type="checkbox" checked value="0" @change="editLayer">Route 1
@@ -14,13 +14,13 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import InputsFormParameters from '@/components/forms/inputs-form-parameters.vue';
 import MainTitle from '@/components/titles/main-title.vue';
 import { useOptimizeModel } from '@/composables/model/useOptimizeModel';
 import ButtonGenericReversed from '@/components/buttons/button-generic-reversed.vue';
 import { useContinueOptimization } from '@/composables/model/useContinueOptimization';
 import { ModelExisting } from '@/types/ModelInfos';
 import { Map } from 'leaflet';
+import FormCreateModel from '@/components/forms/form-create-model.vue';
 
 const parameters = reactive({
   vehicle_max_capacity: 40,

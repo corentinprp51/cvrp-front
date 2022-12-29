@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/model/:id/edit',
         name: 'model-edit',
-        component: () => import('@/views/home-view.vue'),
+        component: () => import('@/views/model-edit-view.vue'),
     },
     {
         path: '/model/new',

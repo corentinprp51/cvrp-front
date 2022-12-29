@@ -12,7 +12,7 @@
           <router-link class="text-[#3D8CC5] hover:underline hover:decoration-1" :to="{ name: 'model-view', params: { id: model.id } }">{{ model.name }}</router-link>
         </span>
         <span>{{ castDate(model.creation_date) }}</span>
-        <span>{{ model.last_edit ? model.last_edit : '-'}}</span>
+        <span>{{ model.last_edit ? castDate(model.last_edit) : '-'}}</span>
         <span class="flex gap-[10px]">
           <edit class="cursor-pointer w-[30px] h-[30px]" @click="editModel(model.id)" />
           <trash class="cursor-pointer w-[30px] h-[30px]" @click="deleteM(model.id)"/>

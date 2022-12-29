@@ -1,7 +1,7 @@
 <template>
   <div class="h-[85px] grid grid-cols-3 items-center bg-white drop-shadow-classic">
-    <img src="@/assets/upc.svg" alt="">
-    <ul class="flex justify-center m-0 p-0 text-primary-color">
+    <router-link to="/"><img src="@/assets/upc.svg" alt="" class="cursor-pointer"></router-link>
+    <ul class="list flex justify-center m-0 p-0 text-primary-color">
       <router-link class="menu-item" to="/">
         <li>Home</li>
       </router-link>
@@ -30,7 +30,7 @@ const userStore = useUserStore()
 .menu-item:last-child {
   @apply mr-0;
 }
-.router-link-active {
+.list .router-link-active {
   @apply border-b-primary-color border-b-2 pb-2
 }
 </style>
