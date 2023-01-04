@@ -1,7 +1,11 @@
 <template>
   <div>
-    <navbar v-if="isMounted === true && route.name !== 'login' && route.name !== 'register'"/>
-    <router-view />
+    <flashmessage-handler />
+    <modal-wrapper />
+    <div>
+      <navbar v-if="isMounted === true && route.name !== 'login' && route.name !== 'register'"/>
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -11,6 +15,8 @@
 import Navbar from '@/components/navbar/navbar.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
+import FlashmessageHandler from '@/components/flash-messages/flashmessage-handler.vue';
+import ModalWrapper from '@/components/Modal/modal-wrapper.vue';
 
 const route = useRoute()
 const router = useRouter()

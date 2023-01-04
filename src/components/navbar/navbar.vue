@@ -5,8 +5,11 @@
       <router-link class="menu-item" to="/">
         <li>Home</li>
       </router-link>
-      <router-link class="menu-item" to="/">
+      <router-link class="menu-item" to="/profile">
         <li>Profile</li>
+      </router-link>
+      <router-link class="menu-item" to="/admin" v-if="userStore.user.isAdmin">
+        <li>Admin</li>
       </router-link>
     </ul>
     <div class="logout flex justify-end">

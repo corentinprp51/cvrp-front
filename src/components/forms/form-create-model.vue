@@ -4,7 +4,7 @@
       <input-file class="w-[415px]" @changeFile="changeFile"/>
     </div>
     <div class="mt-[20px]">
-      <input-generic-with-label class="w-[300px] text-start" type="text" v-model="propsName" label="Model Name" />
+      <input-generic-with-label class="w-[300px]" type="text" v-model="propsName" label="Model Name" />
     </div>
     <div class="mt-[20px]">
       <input-generic-with-label class="w-[300px]" v-model="propsValue.vehicle_max_capacity" label="Vehicle Max Capacity" />
@@ -18,6 +18,9 @@
     <div class="mt-[10px]">
       <input-generic-with-label class="w-[300px]" v-model="propsValue.gap" label="MIP Gap" />
     </div>
+    <div class="mt-[20px] flex items-center">
+      <span class="text-white font-bold mr-5">Need Email Notification</span><input type="checkbox" v-model="propsEmail">
+    </div>
     <button-generic class="w-[300px] mt-[20px]">Optimize</button-generic>
   </form>
 </template>
@@ -29,13 +32,15 @@ import ButtonGeneric from '@/components/buttons/button-generic.vue';
 import InputFile from '@/components/inputs/input-file.vue';
 import { reactive } from 'vue';
 
-const props = withDefaults(defineProps<{modelValue: any; name: string}>(), {
+const props = withDefaults(defineProps<{modelValue: any; name: string; email: boolean}>(), {
 })
 const propsValue = useVModel(props, 'modelValue')
 const propsName = useVModel(props, 'name')
+const propsEmail = useVModel(props, 'email')
 const emit = defineEmits<{
   (e: 'submit', coords: object): void,
-  (e: 'update:name'): void
+  (e: 'update:name'): void,
+  (e: 'update:email'): void
 }>()
 
 const coords = reactive({
@@ -50,9 +55,11 @@ const changeFile = (file: File) => {
       const lines = content.split('\n');
       for (let i = 1; i < lines.length; i++) {
         let line = lines[i].split(' ')
-        coords.xcords.push(parseFloat(line[3]))
-        coords.ycords.push(parseFloat(line[4]))
-        coords.capacity.push(parseInt(line[5]) + parseInt(line[6]))
+        if (line.length >= 6) {
+          coords.xcords.push(parseFloat(line[3]))
+          coords.ycords.push(parseFloat(line[4]))
+          coords.capacity.push(parseInt(line[5]) + parseInt(line[6]))
+        }
       }
     })
   }

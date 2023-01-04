@@ -1,13 +1,14 @@
 import { ref } from 'vue';
 import instance from '@/api';
-import { useRouter } from 'vue-router';
+import FlashMessagesService from '@/services/FlashMessageServices';
 
 export const useDeleteModel  = () => {
     const err = ref('')
-    const router = useRouter()
     const deleteModel = async (modelId: number) => {
         await instance.delete(`/model/${modelId}`)
-            .then(() => router.go(0))
+            .then(() => {
+                FlashMessagesService.getInstance().success(`The model ${modelId} has been deleted`)
+            })
             .catch(() => err.value = 'Une erreur est survenue')
     }
     return {

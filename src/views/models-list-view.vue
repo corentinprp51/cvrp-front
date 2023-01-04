@@ -7,7 +7,7 @@
       <main-title>Model's List</main-title>
       <login-button class="mt-[30px] w-[300px]" @click="router.push({ name: 'model-new' })">Create Model</login-button>
     </div>
-    <list-card class="mt-[25px]" v-if="models.length > 0" :models="models" />
+    <list-card class="mt-[25px]" v-if="models.length > 0" :models="models" @update-models="fetchModels" />
   </div>
 </template>
 
@@ -20,5 +20,5 @@ import { useRouter } from 'vue-router';
 import Loader from '@/components/icons/loader.vue';
 
 const router = useRouter()
-const { models, err, isPreloading } = useListModels()
+const { models, err, isPreloading, fetchModels } = useListModels()
 </script>

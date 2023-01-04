@@ -20,6 +20,8 @@ export const useRegister = () => {
             .then((response) => {
                 userStore.setToken(response.data.access_token)
                 localStorage.setItem('token', response.data.access_token)
+                localStorage.setItem('refresh_token', response.data.refresh_token)
+                userStore.setUser({...response.data})
                 router.push('/')
             })
             .catch((error) => {

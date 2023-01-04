@@ -29,14 +29,21 @@ import { castDate } from '@/utils/castDate';
 import Trash from '@/components/icons/trash.vue';
 import Edit from '@/components/icons/edit.vue';
 import { useRouter } from 'vue-router';
-import { useDeleteModel } from '@/composables/model/useDeleteModel';
+import ModalServices from '@/services/ModalServices';
+import DeleteModelModal from '@/components/Modal/delete-modal/delete-model-modal.vue';
 
 const props = defineProps<{models: Array<Model>}>()
+const emit = defineEmits<{(e: 'updateModels'): void}>()
 const router = useRouter()
-const { err, deleteModel } = useDeleteModel()
 
 const deleteM = async (modelId: number) => {
-  await deleteModel(modelId)
+  if (modelId) {
+    ModalServices.getInstance().openDeleteModal(DeleteModelModal, modelId).then((isDeleted: boolean) => {
+      if (isDeleted) {
+        emit('updateModels')
+      }
+    })
+  }
 }
 
 const editModel = (modelId: number) => {

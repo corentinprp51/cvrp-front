@@ -3,4 +3,8 @@ export interface User {
     email: string;
     firstname: string;
     lastname: string;
+    isAdmin: boolean;
+    access_token: string;
+    id: number;
+    refresh_token: string;
 }

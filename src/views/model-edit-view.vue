@@ -6,7 +6,10 @@
     <div>
       <main-title>Edit - {{ model.name }}</main-title>
     </div>
-    <form-edit-model v-model="model.parameters" v-model:name="name" @submit="submitForm"/>
+    <form-edit-model v-if="!isLoadingEdit" v-model="model.parameters" v-model:name="name" v-model:email="email" @submit="submitForm"/>
+    <div v-if="isLoadingEdit" class="mt-5">
+      <loader />
+    </div>
   </div>
 </template>
 
@@ -23,8 +26,9 @@ const route: RouteLocationNormalizedLoaded = useRoute()
 const router = useRouter()
 const modelId: number = parseInt(route.params.id as string)
 const { model, fetchModel, isPreloading } = useViewModel(modelId)
-const { error, editModel } = useEditModel()
+const { error, editModel, isLoadingEdit } = useEditModel()
 const name = ref('')
+const email = ref(false)
 
 onMounted(async () => {
   await fetchModel(modelId)
@@ -35,7 +39,7 @@ onMounted(async () => {
 
 const submitForm = async () => {
   if (model.value) {
-    await editModel(modelId, {name: name.value, parameters: model.value.parameters})
+    await editModel(modelId, {name: name.value, parameters: model.value.parameters, needEmail: email.value})
     await router.push({ name: 'model-view', params: { id : modelId} })
     return
   }

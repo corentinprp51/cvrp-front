@@ -40,6 +40,16 @@ const routes: Array<RouteRecordRaw> = [
         name: 'model-new',
         component: () => import('@/views/model-create-view.vue'),
     },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/views/profile-view.vue'),
+    },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: () => import('@/views/admin-view.vue'),
+    },
 ]
 
 const router = createRouter({

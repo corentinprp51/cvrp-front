@@ -2,6 +2,7 @@ export interface ModelInfos {
     name: string
     parameters: Parameters
     data: DataInput
+    needEmail: boolean
 }
 
 export interface Parameters {
