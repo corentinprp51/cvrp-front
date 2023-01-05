@@ -50,6 +50,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'admin',
         component: () => import('@/views/admin-view.vue'),
     },
+    {
+        path: '/admin/user/:id',
+        name: 'admin-edit-user',
+        component: () => import('@/views/admin-edit-user.vue'),
+    },
 ]
 
 const router = createRouter({

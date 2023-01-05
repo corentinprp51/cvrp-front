@@ -5,10 +5,11 @@
       <div class="flex flex-col items-center">
         <second-title>Users List</second-title>
         <ul v-if="!isPreloadingUsers" class="mt-[10px] w-[60%] shadow rounded-[8px]">
-          <li v-for="(user, index) in users" :class="index % 2 === 0 ? 'bg-[#EFEFEF]' : 'bg-white'" class="grid grid-cols-[1fr_2fr_1fr_1fr] items-center rounded-[8px] py-[15px] px-[8px] text-[18px] text-start">
+          <li v-for="(user, index) in users" :class="index % 2 === 0 ? 'bg-[#EFEFEF]' : 'bg-white'" class="grid grid-cols-[1fr_2fr_1fr_1fr_1fr] items-center rounded-[8px] py-[15px] px-[8px] text-[18px] text-start">
             <span>{{ user.id }}</span>
             <span>{{ user.username }}</span>
             <span class="font-bold">{{ user.isAdmin ? 'admin' : 'member' }}</span>
+            <span class="justify-self-end"><edit class="w-[25px] h-[25px] cursor-pointer" @click="router.push({name: 'admin-edit-user', params:{id: user.id}})" /></span>
             <span class="justify-self-end"><trash class="w-[25px] h-[25px] cursor-pointer" @click="deleteUserFromList(user.id)" /></span>
           </li>
         </ul>
@@ -55,12 +56,15 @@ import Trash from '@/components/icons/trash.vue';
 import { useDeleteUser } from '@/composables/admin/useDeleteUser';
 import ModalServices from '@/services/ModalServices';
 import DeleteUserModal from '@/components/Modal/delete-modal/delete-user-modal.vue'
+import Edit from '@/components/icons/edit.vue';
+import { useRouter } from 'vue-router';
 
 const userId = ref('')
 const { users, isPreloadingUsers, errUsers, fetchUsers } = useListUsers()
 const { admins, isPreloadingAdmin, errAdmin, fetchAdmins } = useListAdmins()
 const { setAdmin, errorSetAdmin } = useSetAdmin()
 const { deleteUser, errorDeleteUser } = useDeleteUser()
+const router = useRouter()
 fetchUsers()
 fetchAdmins()
 
