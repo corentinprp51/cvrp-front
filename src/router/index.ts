@@ -29,31 +29,51 @@ const routes: Array<RouteRecordRaw> = [
         path: '/model/:id',
         name: 'model-view',
         component: () => import('@/views/model-view.vue'),
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/model/:id/edit',
         name: 'model-edit',
         component: () => import('@/views/model-edit-view.vue'),
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/model/new',
         name: 'model-new',
         component: () => import('@/views/model-create-view.vue'),
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/profile',
         name: 'profile',
         component: () => import('@/views/profile-view.vue'),
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/admin',
         name: 'admin',
         component: () => import('@/views/admin-view.vue'),
+        meta: {
+            requiresAuth: true,
+            requiresAdmin: true
+        }
     },
     {
         path: '/admin/user/:id',
         name: 'admin-edit-user',
         component: () => import('@/views/admin-edit-user.vue'),
+        meta: {
+            requiresAuth: true,
+            requiresAdmin: true
+        }
     },
 ]
 
@@ -64,6 +84,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const needAuth = to.meta.requiresAuth
+    const forAdminOnly = to.meta.requiresAdmin
     const userStore = useUserStore()
     if (!userStore.token && localStorage.getItem('token')) {
         userStore.setToken(localStorage.getItem('token'))
@@ -72,6 +93,10 @@ router.beforeEach((to, from, next) => {
         next({name: 'login'})
         return
     } else if (userStore.token && (to.name === 'login' || to.name === 'register')) {
+        next('/')
+        return
+    }
+    if(userStore.user && !userStore.user.isAdmin && forAdminOnly) {
         next('/')
         return
     }

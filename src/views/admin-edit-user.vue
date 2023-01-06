@@ -4,8 +4,9 @@
       <main-title>Edit User | {{ userId }}</main-title>
     </div>
     <form-admin-edit-user @submit="editUserForm" v-model="userToEditForm"/>
+    <div v-if="errEdit" class="mt-[10px] text-red-800 bg-red-200 text-center rounded-[8px] p-[8px]">{{ errEdit }}</div>
   </div>
-  <div v-if="isPreloading">
+  <div v-if="isPreloading || isPreloadingEdit">
     <loader />
   </div>
 </template>
@@ -18,11 +19,13 @@ import Loader from '@/components/icons/loader.vue';
 import MainTitle from '@/components/titles/main-title.vue';
 import { User } from '@/types/User';
 import FormAdminEditUser from '@/components/forms/form-admin-edit-user.vue';
+import { useEditUserAdmin } from '@/composables/admin/useEditUserAdmin';
 
 const route = useRoute()
 const userId: Ref<number | null> = ref(null)
 const userToEditForm: Ref<User & {password: string; confirm_password: string} | null> = ref(null)
 const { fetchUser, err, isPreloading, user } = useGetUser()
+const { errEdit, isPreloadingEdit, editUser } = useEditUserAdmin()
 onMounted(async () => {
   if (route.params.id){
     userId.value = parseInt(route.params.id as string)
@@ -35,6 +38,13 @@ onMounted(async () => {
   }
 })
 const editUserForm = async () => {
-  console.log('edited !')
+  if (userToEditForm.value) {
+    if (userToEditForm.value.password === userToEditForm.value.confirm_password) {
+      await editUser(userId.value as number, userToEditForm.value)
+    }
+    else {
+      errEdit.value = "Les mots de passe doivent être identiques"
+    }
+  }
 }
 </script>

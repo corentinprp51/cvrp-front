@@ -34,6 +34,8 @@ instance.interceptors.response.use(response => response, async (error) => {
                     .then((response) => {
                         userStore.setToken(response.data.access_token)
                         localStorage.setItem('token', response.data.access_token)
+                        // Set User Store -> User
+                        userStore.setUser(response.data.user)
                     })
                     .catch(() => {
                         userStore.logout()
@@ -45,7 +47,7 @@ instance.interceptors.response.use(response => response, async (error) => {
             if (error.response.status === 422) {
                 await router.push('/login')
             }
-            return Promise.reject({ errors: error.response.data.errors ,status: error.response.status })
+            return Promise.reject({ errors: error.response.data.error, message: error.response.data.message ,status: error.response.status })
         } else if (error.message && error.message === "Network error") {
             FlashMessagesService.getInstance().error('Une erreur est survenue')
         }

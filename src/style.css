@@ -6,3 +6,6 @@
 * {
     font: 1em "Raleway", Arial, sans-serif;
 }
+body {
+    overflow-x: hidden;
+}
