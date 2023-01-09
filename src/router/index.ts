@@ -20,11 +20,6 @@ const routes: Array<RouteRecordRaw> = [
         name: 'register',
         component: () => import('@/views/register-view.vue'),
     },
-    // {
-    //     path: '/models',
-    //     name: 'models',
-    //     component: () => import('@/views/models-list-view.vue'),
-    // },
     {
         path: '/model/:id',
         name: 'model-view',
@@ -67,9 +62,18 @@ const routes: Array<RouteRecordRaw> = [
         }
     },
     {
-        path: '/admin/user/:id',
+        path: '/admin/user/:id/edit',
         name: 'admin-edit-user',
         component: () => import('@/views/admin-edit-user.vue'),
+        meta: {
+            requiresAuth: true,
+            requiresAdmin: true
+        }
+    },
+    {
+        path: '/admin/user/:id/view',
+        name: 'admin-view-user',
+        component: () => import('@/views/admin-view-user.vue'),
         meta: {
             requiresAuth: true,
             requiresAdmin: true

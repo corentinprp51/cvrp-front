@@ -41,6 +41,10 @@ instance.interceptors.response.use(response => response, async (error) => {
                         userStore.logout()
                     })
             }
+            else if (error.response.status === 401 && originalRequest._retry) {
+                FlashMessagesService.getInstance().error('Unauthorized to do that')
+                await router.push('/')
+            }
             if (error.response.status === 500 || error.response.status === 400) {
                 FlashMessagesService.getInstance().error('Une erreur est survenue')
             }
