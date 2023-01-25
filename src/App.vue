@@ -25,6 +25,6 @@ onMounted(async () => {
   await router.isReady();
   isMounted.value = true
 })
-
+// @ts-ignore
 L.mapquest.key = 'Ar9cZlhyUtoAdJxRkv59u2GzTor4t0Fl';
 </script>

@@ -8,7 +8,7 @@
       <router-link class="menu-item" to="/profile">
         <li>Profile</li>
       </router-link>
-      <router-link class="menu-item" to="/admin" v-if="userStore.user.isAdmin">
+      <router-link class="menu-item" to="/admin" v-if="userStore.user && userStore.user.isAdmin">
         <li>Admin</li>
       </router-link>
     </ul>

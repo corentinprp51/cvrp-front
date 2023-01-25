@@ -25,11 +25,10 @@
 <script lang="ts" setup>
 import SecondTitle from '@/components/titles/second-title.vue';
 import { InputParameters } from '@/types/Model';
-import SquareCheck from '@/components/icons/square-check.vue';
 
 const props = defineProps<{parameters: InputParameters; routes: Array<object>}>()
 const emit = defineEmits<{
-  (e: 'inputChange', target: HTMLInputElement): void,
+  (e: 'inputChange', target: Event): void,
 }>()
 </script>
 

@@ -6,7 +6,7 @@
     <div class="flex flex-col items-center mt-[37px]">
       <main-title>Model's List - {{ user.username }}</main-title>
     </div>
-    <list-card class="mt-[25px]" v-if="user.models.length > 0" :models="user.models" @update-models="fetchUser(userId)"/>
+    <list-card class="mt-[25px]" v-if="userId && user.models.length > 0" :models="user.models" @update-models="userId ? fetchUser(userId) : null"/>
   </div>
 </template>
 

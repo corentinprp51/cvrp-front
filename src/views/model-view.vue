@@ -22,8 +22,8 @@
 
 import { useViewModel } from '@/composables/model/useViewModel';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
-import { onMounted, reactive, Ref, ref } from 'vue';
-import { Map } from 'leaflet';
+import { onMounted, ref } from 'vue';
+import { Layer, Map } from 'leaflet';
 import MainTitle from '@/components/titles/main-title.vue';
 import RoutesCard from '@/components/cards/routes-card.vue';
 import { mapStyles } from '@/utils/mapStyle';
@@ -57,7 +57,7 @@ onMounted(async () => {
     defineMap()
   }
 })
-
+// @ts-ignore
 const directions = L.mapquest.directions();
 let layers: any = [];
 
@@ -76,6 +76,7 @@ const createMap = (err: any, response: any) => {
     return;
   }
   // Possibiltié de customiser les layers ici en faisant un extends du direction Layer pour customiser les markers
+  // @ts-ignore
   const l = L.mapquest.directionsLayer({
     ...mapStyles[layers.length],
     directionsResponse: response
@@ -83,12 +84,14 @@ const createMap = (err: any, response: any) => {
   layers.push(l);
   // 3 représente le nombre de routes
   if (layers.length === routesObject.value.length) {
+    // @ts-ignore
     map.value = L.mapquest.map('map', {
       zoomControl: true,
       zoomAnimation:false,
       fadeAnimation:true,
       markerZoomAnimation:true,
       center: [model.value?.data_parameters.xcords[0], model.value?.data_parameters.ycords[0]],
+      // @ts-ignore
       layers: L.mapquest.tileLayer('map'),
       zoom: 12
     }) as Map;
@@ -112,8 +115,8 @@ const editLayer = (e: any) => {
   if (e.target.checked) {
     map.value.addLayer(layersRoutes.value[parseInt(e.target.value)])
   } else {
-    map.value.eachLayer((layer) => {
-      if (layer.hasOwnProperty('locations') && layer.locations === layersRoutes.value[parseInt(e.target.value)].locations){
+    map.value.eachLayer((layer: Layer) => {
+      if (layer.hasOwnProperty('locations') && (layer as Layer & { locations: any}).locations === layersRoutes.value[parseInt(e.target.value)].locations){
         map.value.removeLayer(layer)
       }
     })

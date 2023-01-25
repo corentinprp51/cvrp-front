@@ -5,21 +5,21 @@
       <div class="w-1/2 shadow rounded-[8px] flex flex-col">
         <div class="w-full grid grid-cols-2 gap-[30px] py-[15px] bg-[#EFEFEF] rounded-t-[8px]">
           <span class="font-semibold justify-self-end">Username</span>
-          <span>{{ userStore.user.username }}</span>
+          <span>{{ userStore.user ? userStore.user.username : '' }}</span>
         </div>
         <div class="w-full grid grid-cols-2 gap-[30px] py-[15px]">
           <span class="font-semibold justify-self-end">Email</span>
-          <span>{{ userStore.user.email }}</span>
+          <span>{{ userStore.user ? userStore.user.email : '' }}</span>
         </div>
         <div class="w-full grid grid-cols-2 justify-center gap-[30px] py-[15px] bg-[#EFEFEF] items-center">
           <span class="font-semibold justify-self-end">Firstname</span>
           <input-generic v-if="isEditMode" type="text" v-model="userToEdit.firstname" class="pl-[5px] text-start"/>
-          <span v-else>{{ userStore.user.firstname }}</span>
+          <span v-else>{{ userStore.user ? userStore.user.firstname : '' }}</span>
         </div>
         <div class="w-full grid grid-cols-2 gap-[30px] py-[15px] items-center">
           <span class="font-semibold justify-self-end">Lastname</span>
           <input-generic v-if="isEditMode" type="text" v-model="userToEdit.lastname" class="pl-[5px] text-start"/>
-          <span v-else>{{ userStore.user.lastname }}</span>
+          <span v-else>{{ userStore.user ? userStore.user.lastname : '' }}</span>
         </div>
         <div class="w-full grid grid-cols-2 gap-[30px] py-[15px] items-center bg-[#EFEFEF]" v-if="isEditMode">
           <span class="font-semibold justify-self-end">New Password</span>

@@ -38,7 +38,7 @@ const propsValue = useVModel(props, 'modelValue')
 const propsName = useVModel(props, 'name')
 const propsEmail = useVModel(props, 'email')
 const emit = defineEmits<{
-  (e: 'submit', coords: object): void,
+  (e: 'submit', coords: {xcords: Array<number>; ycords: Array<number>; capacity: Array<number>}): void,
   (e: 'update:name'): void,
   (e: 'update:email'): void
 }>()

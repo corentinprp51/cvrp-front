@@ -19,8 +19,9 @@ export const setUserStore = async () => {
         }).catch(() => {})
     }
 }
-await setUserStore()
-// @ts-ignore
-if (!vm) {
-    vm = app.use(router).mount('#app')
-}
+setUserStore().finally(() => {
+    // @ts-ignore
+    if (!vm) {
+        vm = app.use(router).mount('#app')
+    }
+})
